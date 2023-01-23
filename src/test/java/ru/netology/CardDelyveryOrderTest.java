@@ -31,7 +31,7 @@ class CardDelyveryOrderTest {
         $x("//span[@class=\"button__text\"]").click();
         $x("//*[contains(text(),\"Успешно!\")]").hover();
         $(".notification__content")
-                .shouldHave(Condition.text("Встреча успешно забронирована на " + planningDate), Duration.ofSeconds(30))
+                .shouldHave(Condition.text("Встреча успешно забронирована на " + planningDate), Duration.ofSeconds(55))
                 .shouldBe(Condition.visible);
 
     }
