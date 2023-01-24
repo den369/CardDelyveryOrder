@@ -34,5 +34,6 @@ class CardDelyveryOrderTest {
                 .shouldHave(Condition.text("Встреча успешно забронирована на " + planningDate), Duration.ofSeconds(30))
                 .shouldBe(Condition.visible);
 
+
     }
 }
