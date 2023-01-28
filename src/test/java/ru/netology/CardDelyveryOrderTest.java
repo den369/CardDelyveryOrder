@@ -9,31 +9,31 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+//import static com.codeborne.selenide.Selenide.$;
+//import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.*;
 
-class CardDelyveryOrderTest {
+public class CardDelyveryOrderTest {
 
     public String generateDate(int days) {
         return LocalDate.now().plusDays(days).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
     }
 
     @Test
-    void test() {
+    public void shouldCardDelyveryOrder() {
         Configuration.holdBrowserOpen = true;
         open("http://localhost:9999/");
-        $x("//input[@placeholder=\"Город\"]").setValue("Москва");
-        String planningDate = generateDate(3);
+        $("[data-test-id='city'] input").setValue("Москва");
+        String currentDate = generateDate(10);
         $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
-        $("[data-test-id='date'] input").setValue(planningDate);
-        $("[name=\"name\"]").setValue("Иванов-Соколов Иван");
-        $("[name=\"phone\"]").setValue("+79099099999");
-        $x("//span[@class=\"checkbox__box\"]").click();
-        $x("//span[@class=\"button__text\"]").click();
-        $x("//*[contains(text(),\"Успешно!\")]").hover();
-        $(".notification__content")
-                .shouldHave(Condition.text("Встреча успешно забронирована на " + planningDate), Duration.ofSeconds(155))
+        $("[data-test-id='date'] input").setValue(currentDate);
+        $("[data-test-id='name'] input").setValue("Иванов-Соколов Иван");
+        $("[data-test-id='phone'] input").setValue("+79099099999");
+        $("[data-test-id='agreement']").click();
+        $("button.button").click();
+                $(".notification__content")
+                .shouldHave(Condition.text("Встреча успешно забронирована на " + currentDate), Duration.ofSeconds(15))
                 .shouldBe(Condition.visible);
-
 
     }
 }
